@@ -4,8 +4,6 @@ Created on Sep 11, 2014
 @author: Taylor
 '''
 
-from lib2to3.fixer_util import String
-
 class Component(object):
 
     def __init__(self, name, methodCount, locCount):
@@ -13,7 +11,7 @@ class Component(object):
             self.name = name
         else:
             raise(ValueError)
-        if(isinstance(methodCount, str) or methodCount < 0):
+        if (isinstance(methodCount, str) or methodCount < 0):
             raise(ValueError)
         else:
             self.methodCount = methodCount

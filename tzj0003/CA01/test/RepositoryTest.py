@@ -5,8 +5,8 @@ Created on Sep 9, 2014
 '''
 
 import unittest
-import CA01.prod.Repository as Repository
-import CA01.prod.Comonent as Component
+from CA01.prod.Repository import Repository
+from CA01.prod.Component import Component
 
 class RepositoryTest(unittest.TestCase):
 
@@ -20,7 +20,7 @@ class RepositoryTest(unittest.TestCase):
         
 
     def instaintiateRepository(self):
-        repo = Respository(120)
+        Repository(120)
         
     def addComponentToRepository(self):
         repo = Repository(130)
@@ -51,7 +51,7 @@ class RepositoryTest(unittest.TestCase):
         for each in comps:
             repo.addComponent(each)
         vc = repo.determineRelativeSizes()
-        self.assetEqual(vc[0], 8)
+        self.assertEqual(vc[0], 8)
         self.assertEqual(vc[1], 15)
         self.assertEqual(vc[2], 30)
         self.assertEqual(vc[3], 58)

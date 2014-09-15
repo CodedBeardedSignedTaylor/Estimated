@@ -1,5 +1,5 @@
 import unittest
-from CA01.sandbox.Component import Component
+from CA01.prod.Component import Component
 
 
 class ComponentTest(unittest.TestCase):
@@ -18,17 +18,13 @@ class ComponentTest(unittest.TestCase):
     
     def retrieveMethodCount(self):
         comp = Component("3", 5, 10)
-        mc = comp.getMethodCount()
-        self.assertEqual(mc, 5)
-        
+        self.assertEqual(comp.getMethodCount(), 5)
+        comp2 = Component("4", 0, 10)
+        self.assertEqual(comp2.getMethodCount(), 0)
     
     def retrieveLocCount(self):
         comp = Component("3", 2, 12)
         loc = comp.getLocCount()
         self.assertEqual(loc, 12)
-        
-        
-if __name__ == '__main__':
-    suite = unittest.TestLoader().loadTestsFromTestCase('dummyTest')
-    unittest.TextTestRunner(verbosity=2).run(suite)
+
         
