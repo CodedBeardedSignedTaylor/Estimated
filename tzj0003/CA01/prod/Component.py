@@ -6,19 +6,17 @@ Created on Sep 11, 2014
 
 class Component(object):
 
-    def __init__(self, name, methodCount, locCount):
-        if(isinstance(name, str)):
-            self.name = name
-        else:
-            raise(ValueError)
-        if (isinstance(methodCount, str) or methodCount < 0):
-            raise(ValueError)
-        else:
-            self.methodCount = methodCount
-        if(isinstance(locCount, str) or locCount < 1):
-            raise(ValueError)
-        else:
-            self.locCount = locCount
+    def __init__(self, name=None, methodCount=None, locCount=None):
+        if(isinstance(name, str) == False or name == "" or name == None):
+            raise ValueError("Component.__init__:")
+        if (isinstance(methodCount, str) or methodCount < 0 or methodCount == None):
+            raise ValueError("Component.__init__:")
+        if(isinstance(locCount, str) or locCount < 1 or locCount == None):
+            raise ValueError("Component.__init__:")
+        
+        self.name = name
+        self.methodCount = methodCount
+        self.locCount = locCount
     
     def getName(self):
         return self.name

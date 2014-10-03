@@ -9,20 +9,22 @@ from math import sqrt, ceil, exp, log
 class Repository(object):
 
     def __init__(self, capacity=100):
-        if(isinstance(capacity, int)):
+        if(isinstance(capacity, int) and capacity > 0):
             self.capacity = capacity
             self.components = []
             self.componentCount = 0
         else:
-            raise(ValueError)
+            raise ValueError("Repository.__init__:")
     
-    def addComponent(self, component):
-        if(isinstance(component, Component)):
+    def addComponent(self, component=None):
+        if (isinstance(component, Component)):
+            if(len(self.components) == self.capacity):
+                self.components.pop(0)
             self.components.append(component)
             self.componentCount = len(self.components)
             return len(self.components)
         else:
-            raise(ValueError)
+            raise ValueError("Repository.addComponent: you didn't provide a Component.") 
     
     def count(self):
         return self.componentCount
@@ -35,15 +37,17 @@ class Repository(object):
         return vc 
     
     def determineRelativeSizes(self):
+        if (self.validCount() < 2):
+            raise ValueError ("Repository.determineRelativeSizes:")
         nSizes = self.calculateNormalizedSizes()
         avg = self.calculateAverage(nSizes)
         std = self.calculateStdDeviation(avg, nSizes)
         
-        verySmall = ceil(exp(avg - (2 * std)))
-        small = ceil(exp(avg - std))
-        medium = ceil(exp(avg))
-        large = ceil(exp(avg + std))
-        veryLarge = ceil(exp(avg + (2 * std)))
+        verySmall = int(ceil(exp(avg - (2 * std))))
+        small = int(ceil(exp(avg - std)))
+        medium = int(ceil(exp(avg)))
+        large = int(ceil(exp(avg + std)))
+        veryLarge = int(ceil(exp(avg + (2 * std))))
         return [verySmall, small, medium, large, veryLarge]
         
     def calculateNormalizedSizes(self):
@@ -69,13 +73,4 @@ class Repository(object):
         for normalized in nSizes:
             a += (pow((normalized - avg), 2))
         return sqrt(a / b)
-        
-        
-        
-            
-    
-    
-        
-        
-        
         
