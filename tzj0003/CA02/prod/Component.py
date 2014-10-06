@@ -17,6 +17,7 @@ class Component(object):
         self.name = name
         self.methodCount = methodCount
         self.locCount = locCount
+        self.relativeSize = None
     
     def getName(self):
         return self.name
@@ -26,4 +27,19 @@ class Component(object):
     
     def getLocCount(self):
         return self.locCount
+    
+    def setRelativeSize(self, size="M"):
+        if(size == "VS" or size == "S" or size == "M" or size == "L" or size == "VL"):
+            self.relativeSize = size
+            return self.relativeSize
+        elif(isinstance(size, str) == False):
+            raise ValueError("Component.setRelativeSize:")
+        else:
+            raise ValueError("Component.setRelativeSize:")
+        
+    def getRelativeSize(self):
+        if(self.relativeSize == None):
+            raise ValueError("Component.getRelativeSize:")
+        else:
+            return self.relativeSize
     

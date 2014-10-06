@@ -143,11 +143,11 @@ class TestComponent(unittest.TestCase):
     # happy path
     # design decision:
     def test500_010_shouldSetRelativeSize(self):
-        myComponent = Component.Component(methodCount=2, locCount=20)
+        myComponent = Component.Component(name="test", methodCount=2, locCount=20)
         self.assertEquals("S", myComponent.setRelativeSize(size="S"))
     
     def test500_020_shouldSetRelativeSizeToMediumOnMissingParameters(self):
-        myComponent = Component.Component(methodCount=2, locCount=20)
+        myComponent = Component.Component(name="test", methodCount=2, locCount=20)
         self.assertEquals("M", myComponent.setRelativeSize())
         
     # sad path dude.
@@ -155,8 +155,8 @@ class TestComponent(unittest.TestCase):
     def test500_030_shouldOnlyAcceptStringParameters(self):
         expectedString = "Component.setRelativeSize:"
         try:
-            myComponent = Component.Component(name="C1", methodCount=1)
-            myComponent.setRealtiveSize(2)                                              
+            myComponent = Component.Component(name="C1", methodCount=3, locCount=25)
+            myComponent.setRelativeSize(2)                                              
             self.fail("exception was not raised")                    
         except ValueError as raisedException:                                           
             diagnosticString = raisedException.args[0]                                   
@@ -167,7 +167,7 @@ class TestComponent(unittest.TestCase):
     def test500_040_shouldAcceptSpecificSizeStrings(self):
         expectedString = "Component.setRelativeSize:"
         try:
-            myComponent = Component.Component(name="C1", methodCount=1)
+            myComponent = Component.Component(name="C1", methodCount=2, locCount=20)
             myComponent.setRelativeSize("Woof goes the dog.")                                             
             self.fail("exception was not raised")                    
         except ValueError as raisedException:                                           
@@ -180,7 +180,7 @@ class TestComponent(unittest.TestCase):
     # happy path
     # design decision:
     def test600_010_shouldReturnComponentSize(self):
-        myComponent = Component.Component(methodCount=5, locCount=60)
+        myComponent = Component.Component(name="test", methodCount=5, locCount=60)
         myComponent.setRelativeSize()
         self.assertEquals("M", myComponent.getRelativeSize())
         
@@ -188,7 +188,7 @@ class TestComponent(unittest.TestCase):
     def test600_020_shouldRaiseExceptionWhenNoSizeSet(self):
         expectedString = "Component.getRelativeSize:"
         try:
-            myComponent = Component.Component(name="C1", methodCount=1)
+            myComponent = Component.Component(name="C1", methodCount=4, locCount=20)
             myComponent.getRelativeSize()                                             
             self.fail("exception was not raised")                    
         except ValueError as raisedException:                                           
