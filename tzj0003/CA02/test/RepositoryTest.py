@@ -231,38 +231,22 @@ class TestRepository(unittest.TestCase):
 #getRelativeSize
     def test700_010_shouldReturnCorrectSize(self):
         repo = Repository.Repository()
-        comp = Component.Component(name="hello", methodCount=5, locCount=20)
-        c = Component.Component(name="NonZero", methodCount=1, locCount=10)
-        d = Component.Component(name="Non", methodCount=2, locCount=20)
-        repo.addComponent(comp)
+        a = Component.Component(name="Component01", methodCount=1, locCount=76)
+        b = Component.Component(name="Component02", methodCount=4, locCount=116)
+        c = Component.Component(name="Component03", methodCount=7, locCount=113)
+        d = Component.Component(name="Component04", methodCount=5, locCount=103)
+        e = Component.Component(name="Component05", methodCount=0, locCount=10)
+        repo.addComponent(a)
+        repo.addComponent(b)
         repo.addComponent(c)
         repo.addComponent(d)
-        self.assertEquals("S", repo.getRelativeSize(comp))
+        repo.addComponent(e)
+        self.assertEquals("L", repo.getRelativeSize(a))
         
-    
-    def test700_020_noNameShouldThrowException(self):
+    def test700_020_noComponentShouldThrowException(self):
         expectedString = "Repository.getRelativeSize:" 
         maxCapacity = 100
         theRepository = Repository.Repository(maxCapacity)
-        c = Component.Component("NonZero", 1, 10)
-        theRepository.addComponent(c)
-        theRepository.getRelativeSize()
-        try:
-            theRepository.getRelativeSize()                                         
-            self.fail("exception was not raised")                    
-        except ValueError as raisedException:                                           
-            diagnosticString = raisedException.args[0]                                   
-            self.assertEquals(expectedString, diagnosticString[0:len(expectedString)]) 
-        except:
-            self.fail("incorrect exception was raised")
-
-    def test700_030_noMethodsInComponentShouldThrowException(self):
-        expectedString = "Repository.getRelativeSize:" 
-        maxCapacity = 100
-        theRepository = Repository.Repository(maxCapacity)
-        c = Component.Component("NonZero", 0, 10)
-        theRepository.addComponent(c)
-        theRepository.getRelativeSize(c)
         try:
             theRepository.getRelativeSize()                                         
             self.fail("exception was not raised")                    
@@ -272,15 +256,14 @@ class TestRepository(unittest.TestCase):
         except:
             self.fail("incorrect exception was raised")
             
-    def test700_040_tooLittleDataShouldThrowException(self):
+    def test700_030_tooLittleDataShouldThrowException(self):
         expectedString = "Repository.getRelativeSize:" 
         maxCapacity = 100
         theRepository = Repository.Repository(maxCapacity)
         c = Component.Component("NonZero", 1, 10)
         theRepository.addComponent(c)
-        theRepository.getRelativeSize(c)
         try:
-            theRepository.getRelativeSize()                                         
+            theRepository.getRelativeSize(c)                                         
             self.fail("exception was not raised")                    
         except ValueError as raisedException:                                           
             diagnosticString = raisedException.args[0]                                   
@@ -291,14 +274,40 @@ class TestRepository(unittest.TestCase):
 # estimateRelativeSize
     def test800_010_estimateRelativeSize(self):
         repo = Repository.Repository()
-        self.assertEquals("M", repo.estimateByRelativeSize(name="Doug", methodCount=3, locCount=20))
+        a = Component.Component(name="Component01", methodCount=1, locCount=76)
+        b = Component.Component(name="Component02", methodCount=4, locCount=116)
+        c = Component.Component(name="Component03", methodCount=7, locCount=113)
+        d = Component.Component(name="Component04", methodCount=5, locCount=103)
+        e = Component.Component(name="Component05", methodCount=0, locCount=10)
+        
+        repo.addComponent(a)
+        repo.addComponent(b)
+        repo.addComponent(c)
+        repo.addComponent(d)
+        repo.addComponent(e)
+        
+        result = repo.estimateRelativeSize("Comp", 5, "S")
+        self.assertEquals(75, result.getLocCount())
     
     def test800_020_noNameShouldThrowError(self):
-        expectedString = "Repository.getRelativeSize:" 
+        expectedString = "Repository.estimateRelativeSize:" 
         maxCapacity = 100
         theRepository = Repository.Repository(maxCapacity)
         try:
-            theRepository.estimateRelativeSize(methCount=2, locCount=20)                                        
+            theRepository.estimateRelativeSize(methodCount=2, inputSize="S")                                        
+            self.fail("exception was not raised")                    
+        except ValueError as raisedException:                                           
+            diagnosticString = raisedException.args[0]                                   
+            self.assertEquals(expectedString, diagnosticString[0:len(expectedString)]) 
+        except:
+            self.fail("incorrect exception was raised")
+
+    def test800_030_noMethodsInComponentShouldThrowException(self):
+        expectedString = "Repository.estimateRelativeSize:" 
+        maxCapacity = 100
+        theRepository = Repository.Repository(maxCapacity)
+        try:
+            theRepository.estimateRelativeSize(name="NonZero", methodCount=0, inputSize="M")                                       
             self.fail("exception was not raised")                    
         except ValueError as raisedException:                                           
             diagnosticString = raisedException.args[0]                                   
@@ -306,13 +315,28 @@ class TestRepository(unittest.TestCase):
         except:
             self.fail("incorrect exception was raised")
     
-    def test800_030_shouldRaiseValueErrorOnDuplicateComponent(self):
-        expectedString = "Repository.getRelativeSize:" 
+    def test800_040_shouldRaiseValueErrorOnDuplicateComponent(self):
+        expectedString = "Repository.estimateRelativeSize:" 
         maxCapacity = 100
         theRepository = Repository.Repository(maxCapacity)
         theRepository.addComponent(Component.Component("Dog", 4, 50))
         try:
-            theRepository.estimateRelativeSize("Dog", methCount=2, locCount=20)                                        
+            theRepository.estimateRelativeSize(name="Dog", methodCount=12, inputSize="M")                                        
+            self.fail("exception was not raised")                    
+        except ValueError as raisedException:                                           
+            diagnosticString = raisedException.args[0]                                   
+            self.assertEquals(expectedString, diagnosticString[0:len(expectedString)]) 
+        except:
+            self.fail("incorrect exception was raised")
+    
+    def test800_050_tooLittleDataShouldThrowException(self):
+        expectedString = "Repository.estimateRelativeSize:" 
+        maxCapacity = 100
+        theRepository = Repository.Repository(maxCapacity)
+        c = Component.Component("NonZero", 1, 10)
+        theRepository.addComponent(c)
+        try:
+            theRepository.estimateRelativeSize("NonZero", 1, 10)                                         
             self.fail("exception was not raised")                    
         except ValueError as raisedException:                                           
             diagnosticString = raisedException.args[0]                                   
