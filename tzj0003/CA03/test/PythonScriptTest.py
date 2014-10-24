@@ -19,7 +19,7 @@ class Test(unittest.TestCase):
     
     # Sad Path
     def test100_020_shouldRejectFileNamesLessThan4(self):
-        expectedString = "PythonScript.__init__:"
+        expectedString = "PythonScript.__init__:  you didn't provide a valid fileName"
         try:
             PythonScript.PythonScript(".py")                                                
             self.fail("exception was not raised")                    
@@ -28,9 +28,20 @@ class Test(unittest.TestCase):
             self.assertEquals(expectedString, diagnosticString[0:len(expectedString)]) 
         except:
             self.fail("incorrect exception was raised")
-    
-    def test100_030_shouldHaveValidPath(self):
-        expectedString = "PythonScript.__init__:"
+            
+    def test100_030_fileShouldBePythonFile(self):
+        expectedString = "PythonScript.__init__:  you didn't provide a valid fileName"
+        try:
+            PythonScript.PythonScript("thisIsntReal.px")                                                
+            self.fail("exception was not raised")                    
+        except ValueError as raisedException:                                           
+            diagnosticString = raisedException.args[0]                                   
+            self.assertEquals(expectedString, diagnosticString[0:len(expectedString)]) 
+        except:
+            self.fail("incorrect exception was raised")
+            
+    def test100_040_shouldHaveValidPath(self):
+        expectedString = "PythonScript.__init__:  "
         try:
             PythonScript.PythonScript("thisIsntReal.py")                                                
             self.fail("exception was not raised")                    
