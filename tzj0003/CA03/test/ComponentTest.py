@@ -1,8 +1,5 @@
 import unittest
-
 import CA03.prod.Component as Component
-
-#import CA03.student.Component as Component
 
 class TestComponent(unittest.TestCase):
 
@@ -111,7 +108,6 @@ class TestComponent(unittest.TestCase):
             self.assertEquals(expectedString, diagnosticString[0:len(expectedString)]) 
         except:
             self.fail("incorrect exception was raised")
-
           
 # getName
     #200_0xx ... happy path
@@ -133,42 +129,28 @@ class TestComponent(unittest.TestCase):
     def test400_010_shouldReturnLocCount(self):
         itemToCompare = 100
         self.assertEquals(itemToCompare, Component.Component("C1", 0, itemToCompare).getLocCount())
-
-
-# ------------------------------------------------------------------
-#                        CA02 NEW TESTS
-# -------------------------------------------------------------------
-       
-# setRelativeSize
-    # happy path
-    # design decision:
+#---------------- CA02 -------------------------        
+# setRelativeSize(size)
     def test500_010_shouldSetRelativeSize(self):
-        myComponent = Component.Component(name="test", methodCount=2, locCount=20)
-        self.assertEquals("S", myComponent.setRelativeSize(size="S"))
-    
-    def test500_020_shouldSetRelativeSizeToMediumOnMissingParameters(self):
-        myComponent = Component.Component(name="test", methodCount=2, locCount=20)
-        self.assertEquals("M", myComponent.setRelativeSize())
+        size = "VL"
+        theComponent = Component.Component("C1", 5, 100)
+        self.assertEquals(size, theComponent.setRelativeSize("VL"))
         
-    # sad path dude.
-    # design decision:
-    def test500_030_shouldOnlyAcceptStringParameters(self):
+    def test500_020_shouldSetRelativeSizeCaseInsensitive(self):
+        size = "Vl"
+        theComponent = Component.Component("C1", 5, 100)
+        self.assertEquals(size.upper(), theComponent.setRelativeSize("Vl"))
+        
+    def test500_030_shouldSetDefaultRelativeSize(self):
+        size = "M"
+        theComponent = Component.Component("C1", 5, 100)
+        self.assertEquals(size, theComponent.setRelativeSize())
+        
+    def test500_910_ShouldObjectToBadSize(self):
         expectedString = "Component.setRelativeSize:"
         try:
-            myComponent = Component.Component(name="C1", methodCount=3, locCount=25)
-            myComponent.setRelativeSize(2)                                              
-            self.fail("exception was not raised")                    
-        except ValueError as raisedException:                                           
-            diagnosticString = raisedException.args[0]                                   
-            self.assertEquals(expectedString, diagnosticString[0:len(expectedString)]) 
-        except:
-            self.fail("incorrect exception was raised")
-    
-    def test500_040_shouldAcceptSpecificSizeStrings(self):
-        expectedString = "Component.setRelativeSize:"
-        try:
-            myComponent = Component.Component(name="C1", methodCount=2, locCount=20)
-            myComponent.setRelativeSize("Woof goes the dog.")                                             
+            myComponent = Component.Component("CX", 1, 100)   
+            myComponent.setRelativeSize("x")                                             
             self.fail("exception was not raised")                    
         except ValueError as raisedException:                                           
             diagnosticString = raisedException.args[0]                                   
@@ -176,19 +158,30 @@ class TestComponent(unittest.TestCase):
         except:
             self.fail("incorrect exception was raised")
             
-# getRelativeSize
-    # happy path
-    # design decision:
-    def test600_010_shouldReturnComponentSize(self):
-        myComponent = Component.Component(name="test", methodCount=5, locCount=60)
-        myComponent.setRelativeSize()
-        self.assertEquals("M", myComponent.getRelativeSize())
+    def test500_920_ShouldObjectToBadSizeType(self):
+        expectedString = "Component.setRelativeSize:  "
+        try:
+            myComponent = Component.Component("CX", 1, 100)   
+            myComponent.setRelativeSize(42)                                             
+            self.fail("exception was not raised")                    
+        except ValueError as raisedException:                                           
+            diagnosticString = raisedException.args[0]                                   
+            self.assertEquals(expectedString, diagnosticString[0:len(expectedString)]) 
+        except:
+            self.fail("incorrect exception was raised")
+
+# getRelativeSize()
+    def test600_010_ShouldGetRelativeSize(self):
+        size = "L"
+        theComponent = Component.Component("C1", 5, 100)
+        theComponent.setRelativeSize(size)
+        self.assertEquals(size, theComponent.getRelativeSize())
         
-    # sad path time.
-    def test600_020_shouldRaiseExceptionWhenNoSizeSet(self):
+            
+    def test600_920_ShouldObjectToNoSizeSet(self):
         expectedString = "Component.getRelativeSize:"
         try:
-            myComponent = Component.Component(name="C1", methodCount=4, locCount=20)
+            myComponent = Component.Component("CX", 1, 100)   
             myComponent.getRelativeSize()                                             
             self.fail("exception was not raised")                    
         except ValueError as raisedException:                                           
@@ -196,6 +189,7 @@ class TestComponent(unittest.TestCase):
             self.assertEquals(expectedString, diagnosticString[0:len(expectedString)]) 
         except:
             self.fail("incorrect exception was raised")
-            
+  
 if __name__ == '__main__':
     unittest.main()
+    

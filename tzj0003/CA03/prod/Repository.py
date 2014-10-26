@@ -3,8 +3,9 @@ Created on Sep 14, 2014
 
 @author: Taylor
 '''
-from CA02.prod.Component import Component
+from CA03.prod.Component import Component
 from math import sqrt, ceil, exp, log
+from __builtin__ import str, int
 
 class Repository(object):
 
@@ -14,19 +15,19 @@ class Repository(object):
             self.components = []
             self.componentCount = 0
         else:
-            raise ValueError("Repository.__init__:")
+            raise ValueError("Repository.__init__:  invalid parameters")
     
     def addComponent(self, component=None):
         if (isinstance(component, Component)):
             if(self.checkForDup(component.getName()) == True):
-                raise ValueError("Repository.addComponent:")
+                raise ValueError("Repository.addComponent:  ")
             if(len(self.components) == self.capacity):
                 self.components.pop(0)
             self.components.append(component)
             self.componentCount = len(self.components)
             return len(self.components)
         else:
-            raise ValueError("Repository.addComponent: you didn't provide a Component.") 
+            raise ValueError("Repository.addComponent:  you didn't provide a Component.") 
     
     def checkForDup(self, name):
         for comp in self.components:
@@ -46,7 +47,7 @@ class Repository(object):
     
     def determineRelativeSizes(self):
         if (self.validCount() < 2):
-            raise ValueError ("Repository.determineRelativeSizes:")
+            raise ValueError ("Repository.determineRelativeSizes:  ")
         nSizes = self.calculateNormalizedSizes()
         avg = self.calculateAverage(nSizes)
         std = self.calculateStdDeviation(avg, nSizes)
@@ -60,7 +61,9 @@ class Repository(object):
     
     def getRelativeSize(self, component=None):
         if (self.validCount() < 2 or component == None):
-            raise ValueError ("Repository.getRelativeSize:")
+            raise ValueError("Repository.getRelativeSize:  ")
+        if(component.getMethodCount() == 0):
+            raise ValueError("Repository.getRelativeSize:  ")
         
         nSizes = self.calculateNormalizedSizes()
         avg = self.calculateAverage(nSizes)
@@ -85,7 +88,7 @@ class Repository(object):
         elif(inputSize <= verySmall):
             return "VS" 
         else:
-            raise ValueError ("Repository.getRelativeSize:")
+            raise ValueError ("Repository.getRelativeSize:  ")
         
     def calculateNormalizedSizes(self):
         normalizedSizes = []
@@ -115,11 +118,14 @@ class Repository(object):
             a += (pow((normalized - avg), 2))
         return sqrt(a / b)
     
-    def estimateRelativeSize(self, name=None, methodCount=None, inputSize=None):
-        if(name == None or methodCount == None):
-            raise ValueError("Repository.estimateRelativeSize: missing parameter")
+    def estimateByRelativeSize(self, name=None, methodCount=None, size=None):
+        inputSize = size
+        if(isinstance(name, str) == False or isinstance(methodCount, int) == False):
+            raise ValueError("Repository.estimateByRelativeSize:  nonvalid type parameters")
+        if(name == None or methodCount == None or name == ""):
+            raise ValueError("Repository.estimateByRelativeSize:  missing parameter")
         if(self.checkForDup(name) == True or self.validCount() < 2 or methodCount <= 0):
-            raise ValueError("Repository.estimateRelativeSize: invalid parameter(s)")
+            raise ValueError("Repository.estimateByRelativeSize:  invalid parameter(s)")
         else:
             if(inputSize == None):
                 inputSize = "M"
@@ -128,7 +134,7 @@ class Repository(object):
             
             for size in dSizes:
                 if(size == 0):
-                    raise ValueError("Repository.estimateRelativeSize:")
+                    raise ValueError("Repository.estimateRelativeSize:  ")
             
             if(inputSize == "VS"):
                 loc = methodCount * dSizes[0]
@@ -140,6 +146,8 @@ class Repository(object):
                 loc = methodCount * dSizes[3]
             elif(inputSize == "VL"):
                 loc = methodCount * dSizes[4]
+            else:
+                raise ValueError("Repository.estimateByRelativeSize:  ")
             
             comp = Component(name, methodCount, loc)
             return comp    
