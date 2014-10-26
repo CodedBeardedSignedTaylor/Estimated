@@ -4,7 +4,7 @@ Created on Oct 21, 2014
 @author: Taylor
 '''
 import unittest
-# import CA03.prod.Component as Component
+import CA03.prod.Component as Component
 # import CA03.prod.Repository as Repository
 import CA03.prod.PythonScript as PythonScript
 import os
@@ -66,7 +66,20 @@ class Test(unittest.TestCase):
         path = script.getFilePath()
         self.assertEquals(path, p)
         
-        
+# countLoc()
+    def test400_010_shouldReturnLocCount(self):
+        script = PythonScript.PythonScript(fileNameIn="test.py")
+        self.assertEquals(10, script.countLoc())
+
+# extractDesign()
+    def test500_010_shouldExtractDesign(self):
+        script = PythonScript.PythonScript(fileNameIn="test.py")
+        design = script.extractDesign()
+        a = Component.Component("Comp A", 5, 3)
+        b = Component.Component("Comp B", 10, 4)
+        c = Component.Component("Comp C", 4, 9)
+        components = [a, b, c]
+        self.assertEquals(components, design)
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
