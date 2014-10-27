@@ -77,13 +77,13 @@ class Repository(object):
         large = int(ceil(exp(avg + std)))
         veryLarge =  int(ceil(exp(avg + (2 * std))))
         
-        if(inputSize > veryLarge):
+        if(inputSize >= veryLarge):
             return "VL"
-        elif(inputSize > large):
+        elif(inputSize >= large):
             return "L"
-        elif(inputSize > medium):
+        elif(inputSize >= medium):
             return "M"
-        elif(inputSize > small):
+        elif(inputSize >= small):
             return "S"
         elif(inputSize <= verySmall):
             return "VS" 

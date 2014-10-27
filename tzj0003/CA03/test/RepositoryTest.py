@@ -447,7 +447,8 @@ class TestRepository(unittest.TestCase):
             theRepository.addComponent(Component.Component("C"+str(i), methodCounts[i], locCounts[i]))
         newComponent = Component.Component("New", 1, 30)
         newRelativeSize = "M"
-        self.assertEquals(newRelativeSize, theRepository.getRelativeSize(newComponent))
+        t = theRepository.getRelativeSize(newComponent)
+        self.assertEquals(newRelativeSize, t)
         
     def test800_020_ShouldReturnRelativeSizeEdgeCase(self):
         theRepository = Repository.Repository()

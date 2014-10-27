@@ -29,14 +29,16 @@ class Component(object):
         return self.locCount
     
     def setRelativeSize(self, size="M"):
-        size = size.upper()
-        if(size == "VS" or size == "S" or size == "M" or size == "L" or size == "VL"):
-            self.relativeSize = size
-            return self.relativeSize
-        elif(isinstance(size, str) == False):
+        
+        if(isinstance(size, str) == False):
             raise ValueError("Component.setRelativeSize:  ")
         else:
-            raise ValueError("Component.setRelativeSize:  ")
+            size = size.upper()
+            if(size == "VS" or size == "S" or size == "M" or size == "L" or size == "VL"):
+                self.relativeSize = size
+                return self.relativeSize
+            else:
+                raise ValueError("Component.setRelativeSize:  ")
         
     def getRelativeSize(self):
         if(self.relativeSize == None):
