@@ -69,18 +69,62 @@ class Test(unittest.TestCase):
 # countLoc()
     def test400_010_shouldReturnLocCount(self):
         script = PythonScript.PythonScript(fileNameIn="test.py")
-        self.assertEquals(10, script.countLoc())
+        f = open(script.getFilePath())
+        count = 0
+        for line in f:
+            if(line.startswith("         ") == False):
+                count = count + 1
+        self.assertEquals(count, script.countLoc())
 
 # extractDesign()
-    def test500_010_shouldExtractDesign(self):
+    
+    def test500_010_componentsShouldHaveProperNames(self):
         script = PythonScript.PythonScript(fileNameIn="test.py")
         design = script.extractDesign()
-        a = Component.Component("Comp A", 5, 3)
-        b = Component.Component("Comp B", 10, 4)
-        c = Component.Component("Comp C", 4, 9)
-        components = [a, b, c]
-        self.assertEquals(components, design)
+        a = Component.Component("TestClass", 3, 10)
+        b = Component.Component("TestClass2", 3, 10)
+        c = Component.Component("function", 1, 3)
+        classes = [a, b]
+        functions = [c]
+        components = [classes, functions]
+        
+        for i in range(0, len(classes) - 1):
+            self.assertEquals(design[0][i].name, components[0][i].name)
 
+        for j in range(0, len(functions) - 1):
+            self.assertEquals(design[1][j].name, components[1][j].name)
+    
+    def test500_020_componentsShouldHaveProperMethodCounts(self):
+        script = PythonScript.PythonScript(fileNameIn="test.py")
+        design = script.extractDesign()
+        a = Component.Component("TestClass", 3, 10)
+        b = Component.Component("TestClass2", 3, 10)
+        c = Component.Component("function", 1, 3)
+        classes = [a, b]
+        functions = [c]
+        components = [classes, functions]
+        
+        for i in range(0, len(classes) - 1):
+            self.assertEquals(design[0][i].methodCount, components[0][i].methodCount)
+
+        for j in range(0, len(functions) - 1):
+            self.assertEquals(design[1][j].methodCount, components[1][j].methodCount)
+
+    def test500_030_componentsShouldHaveProperLocCounts(self):
+        script = PythonScript.PythonScript(fileNameIn="test.py")
+        design = script.extractDesign()
+        a = Component.Component("TestClass", 3, 10)
+        b = Component.Component("TestClass2", 3, 10)
+        c = Component.Component("function", 1, 2)
+        classes = [a, b]
+        functions = [c]
+        components = [classes, functions]
+        
+        for i in range(0, len(classes) - 1):
+            self.assertEquals(design[0][i].locCount, components[0][i].locCount)
+
+        for j in range(0, len(functions) - 1):
+            self.assertEquals(design[1][j].locCount, components[1][j].locCount)
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
     unittest.main()
