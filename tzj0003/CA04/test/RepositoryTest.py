@@ -1,6 +1,6 @@
 import unittest
-import CA03.prod.Repository as Repository
-import CA03.prod.Component as Component
+import CA04.prod.Repository as Repository
+import CA04.prod.Component as Component
 
 class TestRepository(unittest.TestCase):
 

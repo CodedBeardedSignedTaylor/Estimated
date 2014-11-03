@@ -1,5 +1,5 @@
 import unittest
-import CA03.prod.Component as Component
+import CA04.prod.Component as Component
 
 class TestComponent(unittest.TestCase):
 
@@ -192,4 +192,3 @@ class TestComponent(unittest.TestCase):
   
 if __name__ == '__main__':
     unittest.main()
-    
