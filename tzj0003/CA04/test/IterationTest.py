@@ -11,7 +11,7 @@ class Test(unittest.TestCase):
     
     def test100_010_shouldConstructIteration(self):
         myIteration = Iteration.Iteration(effort=120, plannedVelocity=3)
-        self.assertIsInstance(myIteration, Iteration)
+        self.assertIsInstance(myIteration, Iteration.Iteration)
     
     def test100_020_shouldRejectInvalidEffort(self):
         expectedString = "Iteration.__init__:  "
@@ -25,7 +25,7 @@ class Test(unittest.TestCase):
             self.fail("incorrect exception was raised")
     
     def test100_030_shouldRejectInvalidVelocity(self):
-        expectedString = "Iteration.__init__:  you didn't provide a valid fileName"
+        expectedString = "Iteration.__init__:  "
         try:
             Iteration.Iteration(effort=24, plannedVelocity="55")                                                
             self.fail("exception was not raised")                    
