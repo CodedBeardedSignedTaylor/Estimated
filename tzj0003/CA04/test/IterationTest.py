@@ -35,6 +35,15 @@ class Test(unittest.TestCase):
         except:
             self.fail("incorrect exception was raised")
     
+    def test200_010_shouldReturnIterationEffort(self):
+        myIteration = Iteration.Iteration(effort=120, plannedVelocity=3)
+        self.assertEquals(myIteration.getEffort(), 120)
+    
+    def test200_020_shouldReturnIterationEffort(self):
+        myIteration = Iteration.Iteration(effort=120, plannedVelocity=3)
+        self.assertEquals(myIteration.getPV(), 3)
+        
+    
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
     unittest.main()
