@@ -5,24 +5,25 @@ Created on Oct 21, 2014
 '''
 from __builtin__ import str
 import os 
-from CA03.prod.Component import Component
+from CA04.prod.Component import Component
 
 class PythonScript(object):
     
-
-    def __init__(self, fileNameIn=""):
+    def __init__(self, fileName=""):
         
-        ip_length = len(fileNameIn)
-        instance = isinstance(fileNameIn, str)
-        p = os.path.abspath("testFiles/" + fileNameIn)
+        if(isinstance(fileName, str) == False):
+            raise ValueError("PythonScript.__init__:  ")
         
-        if(instance and ip_length > 3 and fileNameIn.endswith(".py")):
-            self.fileName = fileNameIn
+        if(len(fileName) > 3 and fileName.endswith(".py")):
+            self.fileName = fileName
+            self.path = self.checkPath(fileName)
         else:
             raise ValueError("PythonScript.__init__:  you didn't provide a valid fileName")
         
-        if(os.path.exists(p)):
-            self.path = p
+    def checkPath(self, fileName):
+        p = os.path.abspath(fileName)
+        if(os.path.isfile(p)):
+            return p
         else:
             raise ValueError("PythonScript.__init__:  the file path doesn't actually exist.")
    
