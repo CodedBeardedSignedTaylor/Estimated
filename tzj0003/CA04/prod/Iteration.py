@@ -13,6 +13,7 @@ class Iteration(object):
             self.effort = effort
         else:
             raise ValueError("Iteration.__init__:  Effort needs to be an integer > 0.")
+        
         if(plannedVelocity > 0 and isinstance(plannedVelocity, int)):
             self.plannedVelocity = plannedVelocity
         else:
