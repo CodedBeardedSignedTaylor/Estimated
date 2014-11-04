@@ -17,5 +17,11 @@ class Iteration(object):
             self.plannedVelocity = plannedVelocity
         else:
             raise ValueError("Iteration.__init__:  PV needs to be an integer > 0")
+    
+    def getEffort(self):
+        return self.effort
+    
+    def getPV(self):
+        return self.plannedVelocity
       
         
