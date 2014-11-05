@@ -15,11 +15,13 @@ class Test(unittest.TestCase):
     
     def test200_010_shouldAddIteration(self):
         project = Project.Project()
-        iteration = Iteration.Iteration(effort=20, projectedVelocity=4)
-        self.assertEquals(project.addIteration(iteration), 1)
+        iteration1 = Iteration.Iteration(effort=20, plannedVelocity=4)
+        iteration2 = Iteration.Iteration(effort=40, plannedVelocity=9)
+        project.add(iteration1)
+        self.assertEquals(project.add(iteration2), 2)
     
     def test200_020_addShouldRejectInvalidParameters(self):
-        expectedString = "Project.add:  invalid parameters"
+        expectedString = "Project.add:  Invalid Parameters."
         project = Project.Project()
         try:
             project.add(69)                                                
