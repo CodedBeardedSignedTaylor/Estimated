@@ -31,3 +31,44 @@ class Test(unittest.TestCase):
             self.assertEquals(expectedString, diagnosticString[0:len(expectedString)]) 
         except:
             self.fail("incorrect exception was raised")
+    
+    def test300_010_shouldReturnIterationCount(self):
+        project = Project.Project()
+        project.add(Iteration.Iteration(effort=120, plannedVelocity=12))
+        project.add(Iteration.Iteration(effort=100, plannedVelocity=8))
+        project.add(Iteration.Iteration(effort=130, plannedVelocity=20))
+        iterations = project.getIterationCount()
+        self.assertEquals(iterations, 3)
+    
+    def test400_010_shouldGetRequestedIteration(self):
+        project = Project.Project()
+        project.add(Iteration.Iteration(effort=120, plannedVelocity=12))
+        iteration = project.getIteration(iterationNumber=1)
+        self.assertEquals(iteration, Iteration.Iteration(effort=120, plannedVelocity=12))
+    
+    def test400_020_shouldRejectInvalidIterationIndex(self):
+        expectedString = "Project.getIteration:  Invalid Parameter."
+        project = Project.Project()
+        project.add(Iteration.Iteration(effort=120, plannedVelocity=12))
+        try:
+            project.getIteration(-1)                                               
+            self.fail("exception was not raised")                    
+        except ValueError as raisedException:                                           
+            diagnosticString = raisedException.args[0]                                   
+            self.assertEquals(expectedString, diagnosticString[0:len(expectedString)]) 
+        except:
+            self.fail("incorrect exception was raised")
+    
+    def test500_010_shouldGetProjectEffort(self):
+        project = Project.Project()
+        project.add(Iteration.Iteration(effort=120, plannedVelocity=12))
+        project.add(Iteration.Iteration(effort=100, plannedVelocity=8))
+        project.add(Iteration.Iteration(effort=130, plannedVelocity=20))
+        self.assertEquals(project.getEffort(), 350)
+    
+    def test600_010_shouldGetProjectedPV(self):
+        project = Project.Project()
+        project.add(Iteration.Iteration(effort=120, plannedVelocity=12))
+        project.add(Iteration.Iteration(effort=100, plannedVelocity=8))
+        project.add(Iteration.Iteration(effort=130, plannedVelocity=20))
+        self.assertEquals(project.getPV(), 40)
