@@ -16,7 +16,7 @@ class TestComponent(unittest.TestCase):
         self.assertEquals(a, 55)
     
     def test200_020_shouldRejectInvalidDay(self):
-        expectedString = "Calendar.add:  invalid day parameter."
+        expectedString = "Calendar.add:  invalid parameters."
         cal = Calendar.Calendar()
         try:
             cal.add(day="today", effort=20)
@@ -28,7 +28,7 @@ class TestComponent(unittest.TestCase):
             self.fail("incorrect exception was raised")
     
     def test200_030_shouldRejectInvalidEffort(self):
-        expectedString = "Calendar.add:  invalid effort parameter."
+        expectedString = "Calendar.add:  invalid parameters."
         cal = Calendar.Calendar()
         try:
             cal.add(day=3, effort="hard")                                               
