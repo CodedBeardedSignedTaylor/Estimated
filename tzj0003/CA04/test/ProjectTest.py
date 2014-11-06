@@ -44,10 +44,10 @@ class Test(unittest.TestCase):
         project = Project.Project()
         project.add(Iteration.Iteration(effort=120, plannedVelocity=12))
         iteration = project.getIteration(iterationNumber=1)
-        self.assertEquals(iteration, Iteration.Iteration(effort=120, plannedVelocity=12))
+        self.assertEquals(iteration, project.iterations[0])
     
     def test400_020_shouldRejectInvalidIterationIndex(self):
-        expectedString = "Project.getIteration:  Invalid Parameter."
+        expectedString = "Project.getIteration:  you didn't provide an int index"
         project = Project.Project()
         project.add(Iteration.Iteration(effort=120, plannedVelocity=12))
         try:
