@@ -38,6 +38,32 @@ class TestComponent(unittest.TestCase):
             self.assertEquals(expectedString, diagnosticString[0:len(expectedString)]) 
         except:
             self.fail("incorrect exception was raised")
+    
+    def test300_010_shouldReturnCalendarLength(self):
+        cal = Calendar.Calendar()
+        cal.add(day=1, effort=25)
+        cal.add(day=2, effort=30)
+        self.assertEquals(cal.getLength(), 2)
+    
+    def test400_010_shouldReturnRequestedDay(self):
+        cal = Calendar.Calendar()
+        cal.add(day=1, effort=25)
+        cal.add(day=2, effort=30)
+        self.assertEquals(cal.get(2), 30)
+    
+    def test400_020_shouldRejectInvalidDayParameters(self):
+        expectedString = "Calendar.get:  invalid parameters."
+        cal = Calendar.Calendar()
+        cal.add(day=1, effort=25)
+        cal.add(day=2, effort=30)
+        try:
+            cal.get(-1)                                               
+            self.fail("exception was not raised")                    
+        except ValueError as raisedException:                                           
+            diagnosticString = raisedException.args[0]                                   
+            self.assertEquals(expectedString, diagnosticString[0:len(expectedString)]) 
+        except:
+            self.fail("incorrect exception was raised")
             
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
