@@ -17,8 +17,9 @@ class Day(object):
         else:
             raise ValueError("Day.__init__:  You didn't do something right.")
         
-    def geNumber(self):
+    def getNumber(self):
         return self.number
     
     def getEffort(self):
         return self.effort
+    

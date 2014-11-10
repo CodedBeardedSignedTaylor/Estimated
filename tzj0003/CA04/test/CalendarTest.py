@@ -42,14 +42,15 @@ class TestComponent(unittest.TestCase):
     def test300_010_shouldReturnCalendarLength(self):
         cal = Calendar.Calendar()
         cal.add(day=1, effort=25)
-        cal.add(day=2, effort=30)
-        self.assertEquals(cal.getLength(), 2)
+        cal.add(day=12, effort=30)
+        cal.add(day=15, effort=2)
+        self.assertEquals(cal.getLength(), 15)
     
     def test400_010_shouldReturnRequestedDay(self):
         cal = Calendar.Calendar()
         cal.add(day=1, effort=25)
-        cal.add(day=2, effort=30)
-        self.assertEquals(cal.get(2), 30)
+        cal.add(day=30, effort=30)
+        self.assertEquals(cal.get(30), 30)
     
     def test400_020_shouldRejectInvalidDayParameters(self):
         expectedString = "Calendar.get:  invalid parameters."

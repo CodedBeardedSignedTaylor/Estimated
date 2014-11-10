@@ -16,6 +16,7 @@ class Calendar(object):
         
         if(isinstance(day, int) and isinstance(effort, int)):
             if(day > 0 and effort > 0):
+                # Create day object and add it to the list.
                 d = Day.Day(day, effort)
                 self.days.append(d)
         
@@ -29,12 +30,24 @@ class Calendar(object):
     
     def getLength(self):
         
-        return len(self.days)
+        highest_day = 0
+        
+        for d in self.days:
+            day_num = d.getNumber()
+            if(day_num > highest_day):
+                highest_day = day_num
+        
+        return highest_day
 
     def get(self, day):
         
+        # Check to see if the user passed in a valid day.
         if(isinstance(day, int) and day > 0):
-            d = self.days[day - 1]
-            return d.getEffort()
+            for d in self.days:
+                if (d.getNumber() == day):
+                    return d.getEffort()
+            
+            # In the case that our for loop doesn't find the day....
+            raise ValueError("Calendar.get:  Could not find requested day.")
         else: 
             raise ValueError("Calendar.get:  invalid parameters.")
