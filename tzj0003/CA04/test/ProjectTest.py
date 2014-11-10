@@ -72,3 +72,7 @@ class Test(unittest.TestCase):
         project.add(Iteration.Iteration(effort=100, plannedVelocity=8))
         project.add(Iteration.Iteration(effort=130, plannedVelocity=20))
         self.assertEquals(project.getPV(), 40)
+
+if __name__ == "__main__":
+    #import sys;sys.argv = ['', 'Test.testName']
+    unittest.main()
