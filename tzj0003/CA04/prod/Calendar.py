@@ -26,4 +26,15 @@ class Calendar(object):
                 raise ValueError("Calendar.add:  num and effort must be greater than 0.")
         else:
             raise ValueError("Calendar.add:  invalid parameters.")
-            
+    
+    def getLength(self):
+        
+        return len(self.days)
+
+    def get(self, day):
+        
+        if(isinstance(day, int) and day > 0):
+            d = self.days[day - 1]
+            return d.getEffort()
+        else: 
+            raise ValueError("Calendar.get:  invalid parameters.")
