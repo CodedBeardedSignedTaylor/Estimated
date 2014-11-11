@@ -18,7 +18,7 @@ class Test(unittest.TestCase):
         self.assertIsInstance(s, Schedule.Schedule)
     
     def test100_020_shouldRejectInvalidProjectParam(self):
-        expectedString = "Schedule.__init__:  incorrect project parameter."
+        expectedString = "Schedule.__init__:  incorrect parameter types."
         cal = Calendar.Calendar()
         try:
             Schedule.Schedule("hello", cal)                                               
@@ -30,7 +30,7 @@ class Test(unittest.TestCase):
             self.fail("incorrect exception was raised")
     
     def test100_030_shouldRejectInvalidCalParam(self):
-        expectedString = "Schedule.__init__:  incorrect project parameter."
+        expectedString = "Schedule.__init__:  incorrect parameter types."
         proj = Project.Project()
         try:
             Schedule.Schedule(proj, 22)                                               
@@ -74,7 +74,7 @@ class Test(unittest.TestCase):
         self.assertEquals(s.getBurnDown(day=3), 50)
     
     def test300_020_shouldRejectInvalidDay(self):
-        expectedString = "Schedule.getBurnDown:  day not found."
+        expectedString = "Schedule.getBurnDown:  requested day not in range."
         # Create calendar and add days.
         cal = Calendar.Calendar()
         cal.add(day=1, effort=10)
@@ -112,7 +112,7 @@ class Test(unittest.TestCase):
         proj.add(Iteration.Iteration(effort=60, plannedVelocity=3))
         s = Schedule.Schedule(proj, cal)
         
-        self.assertEquals(s.getPV(), 3)
+        self.assertEquals(s.getPV(day=3), 3)
         
 
 if __name__ == "__main__":

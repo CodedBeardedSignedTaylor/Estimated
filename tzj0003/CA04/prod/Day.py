@@ -11,7 +11,7 @@ class Day(object):
 
 
     def __init__(self, number, effort):
-        if(number > 0 and effort > 0):
+        if(number > 0 and effort > -1):
             self.number = number
             self.effort = effort
         else:

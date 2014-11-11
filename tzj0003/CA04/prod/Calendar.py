@@ -15,7 +15,7 @@ class Calendar(object):
     def add(self, day, effort):
         
         if(isinstance(day, int) and isinstance(effort, int)):
-            if(day > 0 and effort > 0):
+            if(day > 0 and effort > -1):
                 # Create day object and add it to the list.
                 d = Day.Day(day, effort)
                 self.days.append(d)
@@ -51,3 +51,15 @@ class Calendar(object):
             raise ValueError("Calendar.get:  Could not find requested day.")
         else: 
             raise ValueError("Calendar.get:  invalid parameters.")
+    
+    def getDay(self, day_num):
+        if(isinstance(day_num, int) and day_num > 0):
+            for d in self.days:
+                if (d.getNumber() == day_num):
+                    return d
+            
+            # In the case that our for loop doesn't find the day....
+            raise ValueError("Calendar.get:  Could not find requested day.")
+        else: 
+            raise ValueError("Calendar.get:  invalid parameters.")
+        
