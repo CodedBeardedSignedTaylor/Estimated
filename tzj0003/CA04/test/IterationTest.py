@@ -8,11 +8,12 @@ import unittest
 import CA04.prod.Iteration as Iteration
 
 class Test(unittest.TestCase):
-    
+
+# Constructor
     def test100_010_shouldConstructIteration(self):
         myIteration = Iteration.Iteration(effort=120, plannedVelocity=3)
         self.assertIsInstance(myIteration, Iteration.Iteration)
-    
+   
     def test100_020_shouldRejectInvalidEffort(self):
         expectedString = "Iteration.__init__:  "
         try:
@@ -34,12 +35,13 @@ class Test(unittest.TestCase):
             self.assertEquals(expectedString, diagnosticString[0:len(expectedString)]) 
         except:
             self.fail("incorrect exception was raised")
-    
+
+# Iteration.getEffort()    
     def test200_010_shouldReturnIterationEffort(self):
         myIteration = Iteration.Iteration(effort=120, plannedVelocity=3)
         self.assertEquals(myIteration.getEffort(), 120)
     
-    def test200_020_shouldReturnIterationEffort(self):
+    def test300_010_shouldReturnIterationPlannedVelocity(self):
         myIteration = Iteration.Iteration(effort=120, plannedVelocity=3)
         self.assertEquals(myIteration.getPV(), 3)
         

@@ -8,11 +8,13 @@ import CA04.prod.Iteration as Iteration
 import CA04.prod.Project as Project
 
 class Test(unittest.TestCase):
-    
+
+# Constructor   
     def test100_010_shouldConstructProject(self):
         project = Project.Project()
         self.assertIsInstance(project, Project.Project)
-    
+
+# Project.add(iteration)   
     def test200_010_shouldAddIteration(self):
         project = Project.Project()
         iteration1 = Iteration.Iteration(effort=20, plannedVelocity=4)
@@ -43,7 +45,8 @@ class Test(unittest.TestCase):
             self.assertEquals(expectedString, diagnosticString[0:len(expectedString)]) 
         except:
             self.fail("incorrect exception was raised")
-    
+
+# Project.getIterationCount()  
     def test300_010_shouldReturnIterationCount(self):
         project = Project.Project()
         project.add(Iteration.Iteration(effort=120, plannedVelocity=12))
@@ -51,7 +54,8 @@ class Test(unittest.TestCase):
         project.add(Iteration.Iteration(effort=130, plannedVelocity=20))
         iterations = project.getIterationCount()
         self.assertEquals(iterations, 3)
-    
+
+# Project.get(iterationNumber)   
     def test400_010_shouldGetRequestedIteration(self):
         project = Project.Project()
         project.add(Iteration.Iteration(effort=120, plannedVelocity=12))
@@ -70,14 +74,16 @@ class Test(unittest.TestCase):
             self.assertEquals(expectedString, diagnosticString[0:len(expectedString)]) 
         except:
             self.fail("incorrect exception was raised")
-    
+
+# Project.getEffort()  
     def test500_010_shouldGetProjectEffort(self):
         project = Project.Project()
         project.add(Iteration.Iteration(effort=120, plannedVelocity=12))
         project.add(Iteration.Iteration(effort=100, plannedVelocity=8))
         project.add(Iteration.Iteration(effort=130, plannedVelocity=20))
         self.assertEquals(project.getEffort(), 350)
-    
+
+# Project.getPV()  
     def test600_010_shouldGetProjectedPV(self):
         project = Project.Project()
         project.add(Iteration.Iteration(effort=120, plannedVelocity=12))

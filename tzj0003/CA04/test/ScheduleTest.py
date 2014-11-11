@@ -10,7 +10,8 @@ import CA04.prod.Schedule as Schedule
 import CA04.prod.Calendar as Calendar
 
 class Test(unittest.TestCase):
-    
+
+# Constructor 
     def test100_010_shouldConstructSchedule(self):
         cal = Calendar.Calendar()
         proj = Project.Project()
@@ -56,7 +57,8 @@ class Test(unittest.TestCase):
             self.assertEquals(expectedString, diagnosticString[0:len(expectedString)]) 
         except:
             self.fail("incorrect exception was raised")
-    
+
+# Schedule.getLastday()   
     def test200_010_shouldGetLastDay(self):
         # Create calendar and add days.
         cal = Calendar.Calendar()
@@ -72,7 +74,8 @@ class Test(unittest.TestCase):
         proj.add(Iteration.Iteration(effort=60, plannedVelocity=3))
         s = Schedule.Schedule(proj, cal)
         self.assertEquals(s.getLastDay(), 5)
-    
+
+# Schedule.getBurnDown(day)    
     def test300_010_shouldGetBurndownForSpecifiedDay(self):
         # Create calendar and add days.
         cal = Calendar.Calendar()
@@ -112,7 +115,8 @@ class Test(unittest.TestCase):
             self.assertEquals(expectedString, diagnosticString[0:len(expectedString)]) 
         except:
             self.fail("incorrect exception was raised")
-    
+ 
+# Schedule.getPV()
     def test400_010_shouldReturnPV(self):
         # Create calendar and add days.
         cal = Calendar.Calendar()

@@ -4,11 +4,13 @@ import unittest
 import CA04.prod.Calendar as Calendar
 
 class TestComponent(unittest.TestCase):
-    
+
+# Constructor
     def test100_010_shouldConstructCalendar(self):
         cal = Calendar.Calendar()
         self.assertIsInstance(cal, Calendar.Calendar)
-    
+
+# Calendar.add(day, effort)   
     def test200_010_shouldAddDayToCalendar(self):
         cal = Calendar.Calendar()
         cal.add(day=1, effort=25)
@@ -45,14 +47,16 @@ class TestComponent(unittest.TestCase):
         cal.add(day=2, effort=30)
         cal.add(day=1, effort=25)
         self.assertEquals(cal.getLength(), 2)
-    
+
+# Calendar.getLength()    
     def test300_010_shouldReturnCalendarLength(self):
         cal = Calendar.Calendar()
         cal.add(day=1, effort=25)
         cal.add(day=12, effort=30)
         cal.add(day=15, effort=2)
         self.assertEquals(cal.getLength(), 15)
-    
+
+# Calendar.get(day)    
     def test400_010_shouldReturnRequestedDay(self):
         cal = Calendar.Calendar()
         cal.add(day=1, effort=25)
