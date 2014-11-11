@@ -12,6 +12,7 @@ class Schedule(object):
     def __init__(self, project, calendar):
         
         if(isinstance(project, Project.Project) and isinstance(calendar, Calendar.Calendar)):
+            
             self.project = project
             self.calendar = calendar
         else:

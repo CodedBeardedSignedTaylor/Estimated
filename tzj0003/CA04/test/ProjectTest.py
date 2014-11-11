@@ -32,6 +32,18 @@ class Test(unittest.TestCase):
         except:
             self.fail("incorrect exception was raised")
     
+    def test200_030_shouldRejectNoParameters(self):
+        expectedString = "Project.add:  Invalid Parameters."
+        project = Project.Project()
+        try:
+            project.add()                                                
+            self.fail("exception was not raised")                    
+        except ValueError as raisedException:                                           
+            diagnosticString = raisedException.args[0]                                   
+            self.assertEquals(expectedString, diagnosticString[0:len(expectedString)]) 
+        except:
+            self.fail("incorrect exception was raised")
+    
     def test300_010_shouldReturnIterationCount(self):
         project = Project.Project()
         project.add(Iteration.Iteration(effort=120, plannedVelocity=12))

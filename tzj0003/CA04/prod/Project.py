@@ -11,8 +11,8 @@ class Project(object):
     def __init__(self):
         self.iterations = []
     
-    def add(self, iteration):
-        if(isinstance(iteration, Iteration.Iteration) == False):
+    def add(self, iteration=None):
+        if(isinstance(iteration, Iteration.Iteration) == False or iteration == None):
             raise ValueError("Project.add:  Invalid Parameters.")
         else:
             self.iterations.append(iteration)

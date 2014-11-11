@@ -41,6 +41,22 @@ class Test(unittest.TestCase):
         except:
             self.fail("incorrect exception was raised")
     
+    def test100_040_shouldRejectSmallCalendars(self):
+        expectedString = "Schedule.__init__:  calendar too small for project."
+        proj = Project.Project()
+        proj.add(Iteration.Iteration(effort=30, plannedVelocity=1))
+        proj.add(Iteration.Iteration(effort=60, plannedVelocity=3))
+        cal = Calendar.Calendar()
+        cal.add(day=1, effort=10)
+        try:
+            Schedule.Schedule(proj, cal)                                               
+            self.fail("exception was not raised")                    
+        except ValueError as raisedException:                                           
+            diagnosticString = raisedException.args[0]                                   
+            self.assertEquals(expectedString, diagnosticString[0:len(expectedString)]) 
+        except:
+            self.fail("incorrect exception was raised")
+    
     def test200_010_shouldGetLastDay(self):
         # Create calendar and add days.
         cal = Calendar.Calendar()
