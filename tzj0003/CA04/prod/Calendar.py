@@ -77,6 +77,5 @@ class Calendar(object):
         for d in self.days:
             effort += d.getEffort()
         
-        return effort
-            
+        return effort         
         
