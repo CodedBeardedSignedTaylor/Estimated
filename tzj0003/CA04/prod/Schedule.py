@@ -12,9 +12,11 @@ class Schedule(object):
     def __init__(self, project, calendar):
         
         if(isinstance(project, Project.Project) and isinstance(calendar, Calendar.Calendar)):
-            
-            self.project = project
-            self.calendar = calendar
+            if(project.getEffort() > calendar.getEffort()):
+                raise ValueError("Schedule.__init__:  calendar too small for project.")
+            else:
+                self.project = project
+                self.calendar = calendar
         else:
             raise ValueError("Schedule.__init__:  incorrect parameter types.")
     

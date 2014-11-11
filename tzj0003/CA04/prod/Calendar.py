@@ -16,10 +16,13 @@ class Calendar(object):
         
         if(isinstance(day, int) and isinstance(effort, int)):
             if(day > 0 and effort > -1):
-                # Create day object and add it to the list.
+                # Create day object.
                 d = Day.Day(day, effort)
-                self.days.append(d)
-        
+                index = self.checkForDup(day)
+                if(index > 0):
+                    self.days[index] = d
+                else:
+                    self.days.append(d)
                 self.effort += d.getEffort()
         
                 return self.effort
@@ -28,13 +31,19 @@ class Calendar(object):
         else:
             raise ValueError("Calendar.add:  invalid parameters.")
     
+    def checkForDup(self, day):
+        for d in self.days:
+            if(day == d.getNumber()):
+                return self.days.index(d)
+        return -1
+    
     def getLength(self):
         
         highest_day = 0
         
         for d in self.days:
             day_num = d.getNumber()
-            if(day_num > highest_day):
+            if(day_num > highest_day and d.getEffort() > 0):
                 highest_day = day_num
         
         return highest_day
@@ -62,4 +71,12 @@ class Calendar(object):
             raise ValueError("Calendar.get:  Could not find requested day.")
         else: 
             raise ValueError("Calendar.get:  invalid parameters.")
+    
+    def getEffort(self):
+        effort = 0
+        for d in self.days:
+            effort += d.getEffort()
+        
+        return effort
+            
         

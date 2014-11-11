@@ -39,6 +39,13 @@ class TestComponent(unittest.TestCase):
         except:
             self.fail("incorrect exception was raised")
     
+    def test200_040_shouldOverwriteDuplicates(self):
+        cal = Calendar.Calendar()
+        cal.add(day=1, effort=25)
+        cal.add(day=2, effort=30)
+        cal.add(day=1, effort=25)
+        self.assertEquals(cal.getLength(), 2)
+    
     def test300_010_shouldReturnCalendarLength(self):
         cal = Calendar.Calendar()
         cal.add(day=1, effort=25)
